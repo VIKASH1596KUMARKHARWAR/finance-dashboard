@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id           String        @id
+  bankAccounts BankAccount[]
+  category     Category[]
+  transaction  Transaction[]
+}
+
+model BankAccount {
+  id            Int           @id @default(autoincrement())
+  accountNumber String
+  balance       Int
+  userId        String
+  user          User          @relation(fields: [userId], references: [id])
+  transaction   Transaction[]
+
+  @@unique([accountNumber, userId])
+}
+
+model Category {
+  id          Int           @id @default(autoincrement())
+  name        String
+  type        String
+  icon        String
+  iconColor   String
+  userId      String
+  user        User          @relation(fields: [userId], references: [id])
+  transaction Transaction[]
+
+  @@unique([name, type, userId])
+}
+
+model Transaction {
+  id            Int         @id @default(autoincrement())
+  date          DateTime
+  amount        Int
+  note          String?
+  recipient     String?
+  userId        String
+  bankAccountId Int
+  categoryId    Int?
+  user          User        @relation(fields: [userId], references: [id])
+  bankAccount   BankAccount @relation(fields: [bankAccountId], references: [id])
+  category      Category?   @relation(fields: [categoryId], references: [id])
+}
