@@ -8,6 +8,7 @@ Welcome to the **Finance Dashboard**! This is a web application that allows user
 
 - **Bank Account Management**: Add, update, delete, and view bank accounts along with their balances.
 - **Transaction Management**: Track transactions with income/expense categories, linked to specific bank accounts.
+- - **Categories**: income/expense categories,ex. salary,food.
 - **Secure Authentication**: Login using **Auth0**.
 - **Dark/Light Mode**: Switch between themes to suit your preference.
 - **Responsive Design**: Built with **TailwindCSS** for a responsive and modern user interface.
